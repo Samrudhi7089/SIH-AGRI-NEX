@@ -1,0 +1,103 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --color-primary: #138A4B;
+    --color-primary-dark: #0B7A3B;
+    --color-primary-darker: #065426;
+    --color-primary-light: #EAF7EF;
+    --color-primary-subtle: #F4FBF6;
+    --color-bg-base: #FFFFFF;
+    --color-bg-soft: #F8FAF9;
+    --color-text-main: #1A2E22;
+    --color-text-muted: #536B5C;
+    --color-border-subtle: #E2ECE5;
+  }
+
+  body {
+    font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    color: var(--color-text-main);
+    background-color: var(--color-bg-soft);
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  #root {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #F1F5F2;
+}
+::-webkit-scrollbar-thumb {
+  background: #C4D9CC;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #138A4B;
+}
+
+/* Utility Animations */
+@keyframes pulse-subtle {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.85; transform: scale(1.02); }
+}
+
+@keyframes wave-flow {
+  0% { transform: translateX(0); }
+  50% { transform: translateX(-10px); }
+  100% { transform: translateX(0); }
+}
+
+.animate-pulse-subtle {
+  animation: pulse-subtle 3s ease-in-out infinite;
+}
+
+.animate-wave {
+  animation: wave-flow 4s ease-in-out infinite;
+}
+
+/* Mobile Frame Simulation Container */
+.mobile-view-container {
+  max-width: 480px;
+  margin: 0 auto;
+  min-height: 100vh;
+  background-color: #FFFFFF;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 768px) {
+  .farmer-screen-wrapper {
+    background-color: #EEF5F1;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem 0.5rem;
+  }
+  .farmer-device-frame {
+    width: 100%;
+    max-width: 440px;
+    height: 92vh;
+    max-height: 900px;
+    background: #FFFFFF;
+    border-radius: 36px;
+    box-shadow: 0 25px 50px -12px rgba(19, 138, 75, 0.15), 0 0 0 10px #1E2E24, 0 0 0 12px #344D3D;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+}
