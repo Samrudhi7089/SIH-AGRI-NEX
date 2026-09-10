@@ -97,7 +97,7 @@ export default function AuthorityDashboard() {
             className="py-2.5 px-3.5 bg-emerald-50 hover:bg-emerald-100 text-emerald-900 font-bold rounded-xl text-xs border border-emerald-200 transition-colors flex items-center gap-1.5"
           >
             <CalendarDays className="w-3.5 h-3.5 text-emerald-700" />
-            <span>Manage Slots</span>
+            <span>Capacity & Operations</span>
           </button>
         </div>
       </div>

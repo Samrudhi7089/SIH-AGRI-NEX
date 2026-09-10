@@ -108,7 +108,7 @@ export default function FarmerDashboard() {
         <div className="bg-linear-to-b from-[#EAF7EF] to-[#D5EFE1] p-3.5 rounded-2xl border border-emerald-200 flex items-center justify-between mb-4">
           <div>
             <div className="text-[10px] font-bold text-emerald-800 uppercase tracking-wider">
-              {t('token')}
+              {t('token')} • <span className="font-mono text-gray-700">{currentBooking.bookingId || 'BK-98421'}</span>
             </div>
             <div className="text-2xl font-black text-emerald-950 tracking-tight">
               {currentBooking.token}
@@ -117,7 +117,7 @@ export default function FarmerDashboard() {
 
           <div className="text-right">
             <div className="text-[10px] text-gray-600 font-medium">
-              {isCompleted ? 'Status' : (isProcessing ? 'Now Serving' : 'Queue Position')}
+              {isCompleted ? 'Status' : (isProcessing ? 'Now Serving' : (currentBooking.status === 'Late / No-show' ? 'Status' : 'Queue Position'))}
             </div>
             <div className="text-sm font-extrabold text-emerald-900">
               {isCompleted ? (
@@ -125,7 +125,7 @@ export default function FarmerDashboard() {
                   <CheckCircle2 className="w-4 h-4" /> Finished
                 </span>
               ) : (
-                isProcessing ? 'In Weighbridge #1' : `#${myPosition} (${farmersAhead} ahead)`
+                isProcessing ? 'In Weighbridge #1' : (currentBooking.status === 'Late / No-show' ? <span className="text-rose-700">Late / No-show</span> : `#${myPosition} (${farmersAhead} ahead)`)
               )}
             </div>
           </div>

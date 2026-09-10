@@ -118,7 +118,21 @@ export const TRANSLATIONS = {
     navProcurement: 'Status',
     navPayment: 'Payment',
     navNotifications: 'Alerts',
-    navProfile: 'Profile'
+    navProfile: 'Profile',
+
+    // New Capacity & Operations, Fair Allocation, and Smart No-show keys
+    centreCapacityOps: 'Centre Capacity & Operations',
+    automatedAllocation: 'Automated Fair Allocation',
+    systemConfirmed: 'System-Confirmed',
+    gracePeriod: 'Grace Period',
+    gracePeriodNotice: '15-minute check-in grace period applies upon slot arrival.',
+    lateNoShow: 'Late / No-show',
+    rescheduled: 'Rescheduled',
+    waitlist: 'Waitlist',
+    joinWaitlist: 'Join Fair FIFO Waitlist',
+    auditLog: 'Anti-Manipulation Audit Log',
+    acceptRescheduledSlot: 'Accept Rescheduled Slot',
+    fairnessGuarantee: 'Fair FCFS algorithmic allocation (Zero manual authority intervention)'
   },
   
   hi: {
@@ -130,7 +144,7 @@ export const TRANSLATIONS = {
     farmerRoleTitle: 'किसान',
     farmerRoleDesc: 'स्लॉट बुक करें, कतार ट्रैक करें और भुगतान स्थिति देखें',
     authorityRoleTitle: 'खरीद अधिकारी',
-    authorityRoleDesc: 'स्लॉट, लाइव कतार, वजन और भुगतान प्रबंधित करें',
+    authorityRoleDesc: 'केंद्र क्षमता, संचालन, लाइव कतार व भुगतान प्रबंधित करें',
     continueBtn: 'आगे बढ़ें',
     
     // Login
@@ -238,7 +252,21 @@ export const TRANSLATIONS = {
     navProcurement: 'खरीद स्थिति',
     navPayment: 'भुगतान',
     navNotifications: 'सूचनाएं',
-    navProfile: 'प्रोफाइल'
+    navProfile: 'प्रोफाइल',
+
+    // New Capacity & Operations, Fair Allocation, and Smart No-show keys
+    centreCapacityOps: 'केंद्र क्षमता एवं संचालन',
+    automatedAllocation: 'स्वचालित निष्पक्ष आवंटन',
+    systemConfirmed: 'सिस्टम द्वारा पुष्ट',
+    gracePeriod: 'अतिरिक्त समय (ग्रेस पीरियड)',
+    gracePeriodNotice: 'स्लॉट समय पर पहुंचने के लिए 15 मिनट का ग्रेस पीरियड लागू है।',
+    lateNoShow: 'विलंबित / अनुपस्थित',
+    rescheduled: 'पुनर्निर्धारित',
+    waitlist: 'प्रतीक्षा सूची (Waitlist)',
+    joinWaitlist: 'निष्पक्ष प्रतीक्षा सूची में शामिल हों',
+    auditLog: 'हेरफेर-रोधी ऑडिट लॉग',
+    acceptRescheduledSlot: 'प्रस्तावित नया स्लॉट स्वीकार करें',
+    fairnessGuarantee: 'स्वचालित निष्पक्ष प्रणाली (अधिकारी द्वारा कोई मैनुअल हस्तक्षेप नहीं)'
   },
 
   mr: {
@@ -250,7 +278,7 @@ export const TRANSLATIONS = {
     farmerRoleTitle: 'शेतकरी',
     farmerRoleDesc: 'स्लॉट बुक करा, थेट रांग तपासा आणि पेमेंट स्थिती पहा',
     authorityRoleTitle: 'खरेदी अधिकारी',
-    authorityRoleDesc: 'स्लॉट, थेट रांग, वजन मापे व पेमेंट व्यवस्थापन करा',
+    authorityRoleDesc: 'केंद्र क्षमता, कामकाज, थेट रांग व पेमेंट व्यवस्थापन करा',
     continueBtn: 'पुढे जा',
     
     // Login
@@ -358,6 +386,20 @@ export const TRANSLATIONS = {
     navProcurement: 'खरेदी स्थिती',
     navPayment: 'पेमेंट',
     navNotifications: 'सूचना',
-    navProfile: 'माझे खाते'
+    navProfile: 'माझे खाते',
+
+    // New Capacity & Operations, Fair Allocation, and Smart No-show keys
+    centreCapacityOps: 'केंद्र क्षमता व कामकाज',
+    automatedAllocation: 'स्वयंचलित पारदर्शक वाटप',
+    systemConfirmed: 'सिस्टमद्वारे निश्चित',
+    gracePeriod: 'ग्रेस पिरियड (अतिरिक्त वेळ)',
+    gracePeriodNotice: 'वेळेवर पोहोचण्यासाठी १५ मिनिटांची अतिरिक्त सवलत उपलब्ध आहे.',
+    lateNoShow: 'उशीर / अनुपस्थित',
+    rescheduled: 'पुनर्नियोजित',
+    waitlist: 'प्रतीक्षा यादी',
+    joinWaitlist: 'पारदर्शक प्रतीक्षा यादीत सामील व्हा',
+    auditLog: 'गैरव्यवहार प्रतिबंधक ऑडिट नोंद',
+    acceptRescheduledSlot: 'पुनर्नियोजित स्लॉट स्वीकारा',
+    fairnessGuarantee: 'स्वयंचलित निष्पक्ष वाटप (अधिकाऱ्यांचा कोणताही मानवी हस्तक्षेप नाही)'
   }
 };

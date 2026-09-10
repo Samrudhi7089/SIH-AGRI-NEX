@@ -8,13 +8,18 @@ import {
   AlertCircle, 
   ArrowRight, 
   MapPin, 
-  Sparkles,
-  Truck,
-  Activity,
-  ChevronRight
+  Sparkles, 
+  Truck, 
+  Activity, 
+  ChevronRight,
+  ShieldCheck,
+  Calendar,
+  RefreshCw,
+  Info
 } from 'lucide-react';
 import { useKisan } from '../../context/KisanContext';
 import StatusBadge from '../../components/common/StatusBadge';
+import confetti from 'canvas-confetti';
 
 export default function FarmerLiveQueue() {
   const navigate = useNavigate();
@@ -26,6 +31,7 @@ export default function FarmerLiveQueue() {
     farmersAhead, 
     estimatedWaitMinutes, 
     myQueueItem, 
+    acceptRescheduledSlot,
     t,
     triggerSimulatedSMS
   } = useKisan();
@@ -47,9 +53,19 @@ export default function FarmerLiveQueue() {
     }, 600);
   };
 
+  const handleAcceptReschedule = () => {
+    acceptRescheduledSlot();
+    confetti({
+      particleCount: 60,
+      spread: 70,
+      origin: { y: 0.7 },
+      colors: ['#138A4B', '#22C55E', '#3B82F6']
+    });
+  };
+
   const isCompleted = myQueueItem.status === 'Completed';
   const isProcessing = myQueueItem.status === 'Processing';
-  const isYourTurn = myPosition === 1 && !isCompleted;
+  const isLate = currentBooking.status === 'Late / No-show' || currentBooking.isLate;
 
   // Processed count
   const processedCount = queueList.filter(q => q.status === 'Completed').length;
@@ -78,13 +94,78 @@ export default function FarmerLiveQueue() {
         </button>
       </div>
 
+      {/* LATE / NO-SHOW RESCHEDULING RECOVERY BANNER */}
+      {isLate && (
+        <div className="bg-rose-50 border-2 border-rose-300 rounded-3xl p-5 space-y-3 shadow-md animate-in slide-in-from-top-3 duration-300">
+          <div className="flex items-start gap-3">
+            <div className="w-10 h-10 rounded-2xl bg-rose-100 text-rose-700 flex items-center justify-center shrink-0">
+              <AlertCircle className="w-6 h-6" />
+            </div>
+            <div>
+              <h2 className="text-sm font-extrabold text-rose-950">
+                Arrival Grace Period Expired (Late / No-show)
+              </h2>
+              <p className="text-xs text-rose-800 mt-0.5">
+                Your previous position for slot <strong>{currentBooking.timeSlot}</strong> was released to prevent mandi congestion. 
+                Your booking record remains fully preserved.
+              </p>
+            </div>
+          </div>
+
+          {currentBooking.rescheduledOffer && (
+            <div className="bg-white p-4 rounded-2xl border border-rose-200 space-y-2">
+              <div className="flex items-center justify-between text-xs">
+                <span className="text-gray-500 font-bold uppercase text-[10px]">Auto-Offered Next Slot:</span>
+                <span className="font-mono font-bold text-rose-700 bg-rose-50 px-2 py-0.5 rounded-md">
+                  New Token {currentBooking.rescheduledOffer.newToken}
+                </span>
+              </div>
+
+              <div className="flex items-center gap-4 text-xs font-extrabold text-gray-900 pt-1">
+                <div className="flex items-center gap-1.5">
+                  <Calendar className="w-4 h-4 text-emerald-700" />
+                  <span>{currentBooking.rescheduledOffer.newDate}</span>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <Clock className="w-4 h-4 text-emerald-700" />
+                  <span>{currentBooking.rescheduledOffer.newTimeSlot}</span>
+                </div>
+              </div>
+
+              <button
+                onClick={handleAcceptReschedule}
+                className="w-full mt-2 py-3 px-4 bg-[#138A4B] hover:bg-[#0B7A3B] text-white font-bold rounded-xl text-xs shadow-sm transition-all flex items-center justify-center gap-2"
+              >
+                <CheckCircle2 className="w-4 h-4" />
+                <span>Confirm & Accept Rescheduled Slot</span>
+              </button>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Appointment Window & Grace Period Advisory Strip */}
+      <div className="bg-emerald-50/70 p-3 rounded-2xl border border-emerald-200 flex items-center justify-between text-xs text-emerald-950">
+        <div className="flex items-center gap-2">
+          <Clock className="w-4 h-4 text-emerald-700 shrink-0" />
+          <span className="text-[11px] font-semibold">
+            Slot: <strong className="text-emerald-900">{currentBooking.timeSlot}</strong> • 15-min check-in grace period
+          </span>
+        </div>
+        <span className="text-[10px] font-black uppercase bg-emerald-200/80 text-emerald-900 px-2 py-0.5 rounded-md">
+          Active Slot
+        </span>
+      </div>
+
       {/* Hero Position Card */}
       <div className={`p-5 rounded-3xl border-2 shadow-md relative overflow-hidden transition-all ${
         isCompleted
           ? 'bg-emerald-900 text-white border-emerald-700'
           : (isProcessing 
               ? 'bg-amber-900 text-white border-amber-600 animate-pulse-subtle' 
-              : 'bg-linear-to-b from-[#138A4B] to-[#0B7A3B] text-white border-emerald-600')
+              : (isLate 
+                  ? 'bg-rose-950 text-white border-rose-800' 
+                  : 'bg-linear-to-b from-[#138A4B] to-[#0B7A3B] text-white border-emerald-600'))
       }`}>
         <div className="flex items-start justify-between mb-4">
           <div>
@@ -94,11 +175,14 @@ export default function FarmerLiveQueue() {
             <div className="text-4xl font-black tracking-tight text-white mt-0.5">
               {currentBooking.token}
             </div>
+            <div className="text-[10px] text-emerald-200 font-mono mt-0.5">
+              Booking ID: {currentBooking.bookingId || 'BK-98421'}
+            </div>
           </div>
 
           <div className="text-right">
             <span className="inline-block px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-white/20 backdrop-blur-md text-white border border-white/30">
-              {isCompleted ? 'Completed' : (isProcessing ? 'Weighbridge Active' : `${farmersAhead} Farmers Ahead`)}
+              {isCompleted ? 'Completed' : (isProcessing ? 'Weighbridge Active' : (isLate ? 'Late / No-show' : `${farmersAhead} Farmers Ahead`))}
             </span>
           </div>
         </div>
@@ -113,7 +197,7 @@ export default function FarmerLiveQueue() {
               {isCompleted ? (
                 <span className="text-lg text-emerald-300">Done ✓</span>
               ) : (
-                isProcessing ? <span className="text-amber-300 text-lg">Now Serving!</span> : `#${myPosition}`
+                isProcessing ? <span className="text-amber-300 text-lg">Now Serving!</span> : (isLate ? 'Released' : `#${myPosition}`)
               )}
             </div>
           </div>
@@ -123,7 +207,7 @@ export default function FarmerLiveQueue() {
               {t('estimatedWaiting')}
             </div>
             <div className="text-2xl font-black text-white mt-0.5">
-              {isCompleted ? '0 min' : (isProcessing ? '~2 min' : `~${estimatedWaitMinutes} min`)}
+              {isCompleted ? '0 min' : (isProcessing ? '~2 min' : (isLate ? '-' : `~${estimatedWaitMinutes} min`))}
             </div>
           </div>
         </div>
@@ -173,6 +257,7 @@ export default function FarmerLiveQueue() {
             const isMe = item.token === currentBooking.token;
             const isItemCompleted = item.status === 'Completed';
             const isItemProcessing = item.status === 'Processing';
+            const isItemLate = item.status === 'Late / No-show';
 
             return (
               <div
@@ -184,7 +269,7 @@ export default function FarmerLiveQueue() {
                         ? 'bg-gray-50 border-gray-200 opacity-60' 
                         : (isItemProcessing 
                             ? 'bg-amber-50 border-amber-300 animate-pulse-subtle' 
-                            : 'bg-white border-gray-100 shadow-2xs'))
+                            : (isItemLate ? 'bg-rose-50/50 border-rose-200 opacity-70' : 'bg-white border-gray-100 shadow-2xs')))
                 }`}
               >
                 <div className="flex items-center gap-3">
@@ -193,7 +278,7 @@ export default function FarmerLiveQueue() {
                       ? 'bg-[#138A4B] text-white shadow-xs' 
                       : (isItemCompleted 
                           ? 'bg-gray-200 text-gray-600' 
-                          : (isItemProcessing ? 'bg-amber-500 text-white animate-bounce' : 'bg-gray-100 text-gray-800'))
+                          : (isItemProcessing ? 'bg-amber-500 text-white animate-bounce' : (isItemLate ? 'bg-rose-100 text-rose-700' : 'bg-gray-100 text-gray-800')))
                   }`}>
                     {item.token}
                   </div>

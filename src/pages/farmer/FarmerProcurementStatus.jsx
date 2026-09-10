@@ -36,9 +36,9 @@ export default function FarmerProcurementStatus() {
     },
     {
       id: 2,
-      title: 'Slot Booked & Token Allocated',
-      subtext: `Token ${currentBooking.token} issued for ${currentBooking.centreName}`,
-      timestamp: currentBooking.bookedAt || '08 Sep 2026, 10:20 AM',
+      title: 'Automated Slot Allocation',
+      subtext: `Booking ID ${currentBooking.bookingId || 'BK-98421'} system-confirmed. Token ${currentBooking.token} issued automatically.`,
+      timestamp: currentBooking.allocatedAt || currentBooking.bookedAt || '08 Sep 2026, 10:20 AM',
       isDone: true,
       isActive: false
     },

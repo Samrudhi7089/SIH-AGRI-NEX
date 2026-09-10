@@ -9,9 +9,11 @@ import {
   ArrowRight, 
   Home, 
   ShieldCheck, 
-  BellRing,
-  Download,
-  Share2
+  AlertCircle, 
+  Download, 
+  Share2,
+  Lock,
+  Sparkles
 } from 'lucide-react';
 import { useKisan } from '../../context/KisanContext';
 
@@ -21,6 +23,8 @@ export default function FarmerBookingSuccess() {
   const { currentBooking, t } = useKisan();
 
   const booking = location.state || currentBooking;
+  const bookingId = booking.bookingId || currentBooking.bookingId || 'BK-98421';
+  const tokenNum = booking.token || currentBooking.token;
 
   return (
     <div className="p-4 space-y-4">
@@ -44,26 +48,34 @@ export default function FarmerBookingSuccess() {
           <div className="flex items-center gap-2">
             <span className="text-lg">🌾</span>
             <div>
-              <div className="text-xs font-black tracking-wider uppercase">AGRI-NEX E-Token Pass</div>
+              <div className="text-xs font-black tracking-wider uppercase">AGRI-NEX Official E-Token Pass</div>
               <div className="text-[9px] text-emerald-200">Govt APMC Automated Slot System</div>
             </div>
           </div>
-          <span className="text-[10px] bg-white/20 px-2 py-0.5 rounded-full font-bold">
-            VERIFIED
+          <span className="text-[10px] bg-white/20 px-2.5 py-0.5 rounded-full font-bold flex items-center gap-1">
+            <ShieldCheck className="w-3 h-3 text-emerald-200" />
+            <span>SYSTEM CONFIRMED</span>
           </span>
         </div>
 
-        {/* Big Token Number Callout */}
+        {/* Unique Booking ID & Big Token Number Callout */}
         <div className="p-5 text-center bg-radial from-[#F4FBF6] to-white border-b border-dashed border-emerald-200">
-          <div className="text-[11px] font-bold text-emerald-800 uppercase tracking-widest">
+          <div className="flex items-center justify-center gap-2 mb-1">
+            <span className="text-[10px] text-gray-400 uppercase font-bold">Booking ID:</span>
+            <span className="font-mono font-black text-xs text-gray-800 bg-gray-100 px-2 py-0.5 rounded-md">
+              {bookingId}
+            </span>
+          </div>
+
+          <div className="text-[11px] font-bold text-emerald-800 uppercase tracking-widest mt-2">
             {t('tokenNumber')}
           </div>
           <div className="text-4xl font-black text-emerald-950 tracking-tight my-1">
-            {booking.token || currentBooking.token}
+            {tokenNum}
           </div>
           <div className="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-700 bg-emerald-100/70 px-3 py-0.5 rounded-full">
             <ShieldCheck className="w-3.5 h-3.5" />
-            <span>Show at Entry Gate & Weighbridge</span>
+            <span>Show at Entry Gate & Electronic Weighbridge</span>
           </div>
         </div>
 
@@ -104,6 +116,20 @@ export default function FarmerBookingSuccess() {
             <span className="text-gray-500">Declared Crop:</span>
             <span className="font-bold text-gray-900">{booking.quantity || '420 kg'} {booking.crop || 'Wheat'}</span>
           </div>
+
+          <div className="flex items-center justify-between text-[11px]">
+            <span className="text-gray-500">Allocation Protocol:</span>
+            <span className="font-bold text-emerald-800">Automated Algorithmic Allocation</span>
+          </div>
+        </div>
+
+        {/* Smart Grace Period Notice Strip */}
+        <div className="bg-amber-50 p-3.5 border-t border-amber-200 text-[11px] text-amber-950 flex items-start gap-2">
+          <Clock className="w-4 h-4 text-amber-700 shrink-0 mt-0.5" />
+          <div>
+            <strong className="font-bold block">15-Minute Check-in Grace Period:</strong>
+            Please arrive at the centre before the end of the grace period. In case of delay, the system will automatically re-queue and offer the next available slot.
+          </div>
         </div>
 
         {/* QR Code Barcode Representation */}
@@ -113,7 +139,7 @@ export default function FarmerBookingSuccess() {
           </div>
           <div className="text-left text-[10px] text-gray-500">
             <div className="font-bold text-gray-700">Digital Gate Pass Hash</div>
-            <div className="font-mono text-[9px] text-gray-400">KS-2026-A127-AUTH-SEC</div>
+            <div className="font-mono text-[9px] text-gray-400">{bookingId}-{tokenNum}-AUTOPASS</div>
           </div>
         </div>
       </div>

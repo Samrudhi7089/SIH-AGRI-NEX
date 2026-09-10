@@ -76,6 +76,91 @@ export const INITIAL_SLOTS_DATA = [
   { id: 'slot-8', time: '04:00 – 05:00', capacity: 20, booked: 2, available: 18, status: 'OPEN' }
 ];
 
+export const INITIAL_CENTRE_OPERATIONS = {
+  centreId: 'centre-paithan',
+  centreName: 'Paithan Procurement Centre',
+  operatingHours: '09:00 AM - 05:00 PM',
+  defaultHourlyCapacity: 20,
+  activeWeighbridges: 2,
+  gracePeriodMinutes: 15,
+  isTemporarilyClosed: false,
+  closureReason: '',
+  holidays: [
+    { id: 'hol-1', date: '15 September 2026', occasion: 'Anant Chaturdashi / Mandi Maintenance', declaredBy: 'Sunil Deshmukh (Officer #402)', declaredAt: '05 Sep 2026, 02:15 PM' },
+    { id: 'hol-2', date: '02 October 2026', occasion: 'Gandhi Jayanti (Gazetted Holiday)', declaredBy: 'Govt APMC Directorate', declaredAt: '01 Sep 2026, 10:00 AM' }
+  ]
+};
+
+export const INITIAL_AUDIT_LOGS = [
+  {
+    id: 'AUD-9021',
+    timestamp: '09 Sep 2026, 04:30 PM',
+    officerName: 'Sunil Deshmukh',
+    officerId: 'Officer #402',
+    category: 'Capacity Adjustment',
+    action: 'Slot 01:00-02:00 set to BREAK (Capacity 0)',
+    previousValue: 'Capacity: 20 (OPEN)',
+    newValue: 'Capacity: 0 (BREAK)',
+    reason: 'Daily weighbridge calibration & sensor load-cell zero-point verification.',
+    status: 'System Verified'
+  },
+  {
+    id: 'AUD-9018',
+    timestamp: '08 Sep 2026, 11:15 AM',
+    officerName: 'Sunil Deshmukh',
+    officerId: 'Officer #402',
+    category: 'Operating Hours',
+    action: 'Configured standard operating hours 09:00 AM – 05:00 PM',
+    previousValue: '09:00 AM - 04:30 PM',
+    newValue: '09:00 AM - 05:00 PM',
+    reason: 'Extended by 30 mins to accommodate bumper Rabi harvest intake.',
+    status: 'System Verified'
+  },
+  {
+    id: 'AUD-9012',
+    timestamp: '05 Sep 2026, 02:15 PM',
+    officerName: 'Sunil Deshmukh',
+    officerId: 'Officer #402',
+    category: 'Holiday Declared',
+    action: 'Declared holiday for 15 September 2026',
+    previousValue: 'Open for booking',
+    newValue: 'Procurement Centre Closed (Holiday)',
+    reason: 'Anant Chaturdashi public holiday & annual electrical transformer overhaul.',
+    status: 'System Verified'
+  }
+];
+
+export const INITIAL_WAITLIST_DATA = [
+  {
+    waitlistId: 'WL-101',
+    farmerId: 'F1045',
+    farmerName: 'Baban Bhosale',
+    mobile: '+91 98229 88120',
+    village: 'Paithan',
+    crop: 'Wheat',
+    quantity: '350 kg',
+    requestedDate: '10 September 2026',
+    requestedSlot: '09:00 – 10:00',
+    joinedAt: '08 Sep 2026, 11:30 AM',
+    priority: 1,
+    status: 'WAITING'
+  },
+  {
+    waitlistId: 'WL-102',
+    farmerId: 'F1048',
+    farmerName: 'Kavita Kadam',
+    mobile: '+91 98221 44512',
+    village: 'Waluj',
+    crop: 'Wheat',
+    quantity: '400 kg',
+    requestedDate: '10 September 2026',
+    requestedSlot: '09:00 – 10:00',
+    joinedAt: '08 Sep 2026, 01:10 PM',
+    priority: 2,
+    status: 'WAITING'
+  }
+];
+
 export const INITIAL_QUEUE_DATA = [
   {
     token: 'A121',

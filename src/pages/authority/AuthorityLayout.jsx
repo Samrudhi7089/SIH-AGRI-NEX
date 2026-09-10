@@ -36,7 +36,7 @@ export default function AuthorityLayout() {
 
   const navItems = [
     { to: '/authority/dashboard', label: 'Dashboard', icon: LayoutDashboard },
-    { to: '/authority/slots', label: 'Slot Management', icon: CalendarClock },
+    { to: '/authority/slots', label: 'Centre Capacity & Operations', icon: CalendarClock },
     { to: '/authority/queue', label: 'Live Farmer Queue', icon: Users, badge: 'Live' },
     { to: '/authority/farmers', label: 'Farmers Directory (20k)', icon: UserCheck },
     { to: '/authority/procurement', label: 'Procurement & Weighment', icon: Scale },
